@@ -3,76 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VISOR MULTI-SERIES GITHUB</title>
+    <title>BIBLIOTECA MANGA - GITHUB</title>
     <style>
         :root { --bg-color: #212121; --text-color: #EAEAEA; --primary-color: #333; --main-series-color: #FFC107; }
-        html, body {
-            overflow-x: hidden !important; 
-            width: 100% !important; 
-            margin: 0 !important;
-            padding: 0 !important;
-            min-width: 100% !important; 
-        }
+        html, body { overflow-x: hidden !important; width: 100% !important; margin: 0 !important; padding: 0 !important; min-width: 100% !important; }
         body { background-color: var(--bg-color); color: var(--text-color); font-family: sans-serif; min-height: 100vh; }
-        
         .page-wrapper { max-width: 900px; margin: 0 auto; padding: 20px; }
         .hero-banner { background: #1c1c1c; height: 100px; display: flex; justify-content: center; align-items: center; text-align: center; border-radius: 8px; margin-bottom: 30px; }
         .hero-banner h1 { color: var(--main-series-color); font-size: 1.8em; margin: 0; }
-        
         .series-section-title { font-size: 1.6em; color: var(--main-series-color); margin-top: 35px; border-bottom: 2px solid var(--main-series-color); padding-bottom: 5px; }
         .chapter-list-dynamic { list-style: none; padding: 0; margin-top: 20px; }
         .chapter-list-dynamic li { background-color: var(--primary-color); margin-bottom: 8px; border-radius: 4px; transition: background-color 0.2s; display: flex; }
         .chapter-list-dynamic li:hover { background-color: #444; }
         .chapter-list-dynamic a { display: block; padding: 15px; font-size: 1.1em; color: var(--text-color); text-decoration: none; flex-grow: 1; }
-        
         #viewer-section { background-color: #1a1a1a; min-height: 100vh; }
         #manga-viewer { padding-top: 70px; padding-bottom: 70px; cursor: pointer; }
         .manga-page { display: block; max-width: 100%; width: 100%; height: auto; margin: 0 auto 10px auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); }
-        
-        #menu-container-top, #menu-container-bottom {
-            position: fixed; left: 0; right: 0; width: 100%; background-color: #0d0d0d;
-            z-index: 1000; box-shadow: 0 0 5px rgba(0, 0, 0, 0.7); padding: 8px 15px; 
-            display: flex; justify-content: center; align-items: center;
-            opacity: 1; visibility: visible; pointer-events: auto;
-            transition: opacity 0.3s, transform 0.3s;
-        }
-        #menu-container-top { top: 0; transform: translateY(0); }
-        #menu-container-bottom { bottom: 0; transform: translateY(0); }
-        .controls-off-screen-top { transform: translateY(-100%); opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
-        .controls-off-screen-bottom { transform: translateY(100%); opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
-        
+        #menu-container-top, #menu-container-bottom { position: fixed; left: 0; right: 0; width: 100%; background-color: #0d0d0d; z-index: 1000; padding: 8px 15px; display: flex; justify-content: center; align-items: center; transition: opacity 0.3s, transform 0.3s; }
+        #menu-container-top { top: 0; }
+        #menu-container-bottom { bottom: 0; }
+        .controls-off-screen-top { transform: translateY(-100%); opacity: 0; visibility: hidden; }
+        .controls-off-screen-bottom { transform: translateY(100%); opacity: 0; visibility: hidden; }
         .menu-toggle-btn { background-color: #333; color: white; border: none; padding: 12px 20px; font-size: 1.2em; cursor: pointer; border-radius: 5px; width: 100%; }
-        
-        #dropdown-menu { 
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 90%; max-width: 350px; background-color: #1c1c1c; padding: 20px;
-            border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7);
-            flex-direction: column; gap: 15px; display: flex;
-            opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.3s;
-            z-index: 1001;
-        }
-        .visible-menu { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        #dropdown-menu { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 350px; background-color: #1c1c1c; padding: 20px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.7); flex-direction: column; gap: 15px; display: flex; opacity: 0; visibility: hidden; transition: opacity 0.3s; z-index: 1001; }
+        .visible-menu { opacity: 1 !important; visibility: visible !important; }
         button { padding: 12px; border: none; cursor: pointer; border-radius: 4px; font-size: 1em; width: 100%; }
         #menu-title { font-size: 1.3em; font-weight: bold; text-align: center; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 10px; }
         #menu-buttons { display: flex; gap: 10px; width: 100%; }
         #prev-chapter-btn { background-color: #FFC107; color: black; flex-grow: 1; } 
-        #next-chapter-btn { background-color: #4CAF50; flex-grow: 1; } 
+        #next-chapter-btn { background-color: #4CAF50; color: white; flex-grow: 1; } 
         #scroll-controls-group { background-color: #2a2a2a; padding: 10px; border-radius: 4px; display: flex; flex-direction: column; gap: 10px; }
         #autoscroll-label { display: flex; align-items: center; font-size: 1.1em; }
         #autoscroll-toggle { margin-right: 10px; transform: scale(1.3); }
-        #scroll-speed-controls { display: flex; align-items: center; justify-content: space-between; }
-        input[type="range"] { margin: 0 10px; width: 60%; cursor: pointer; }
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <div id="dashboard-section" class="page-wrapper">
-        <div class="hero-banner"><h1>MIS SERIES EN GITHUB</h1></div>
-        <h2 style="color:var(--main-series-color);">CAPÍTULOS DISPONIBLES</h2>
-        <div id="series-list-container">
-            <ul id="chapter-list-container" class="chapter-list-dynamic"><li><a href="#">Cargando...</a></li></ul>
-        </div>
+        <div class="hero-banner"><h1>MIS MANGAS - GITHUB</h1></div>
+        <div id="series-list-container"></div>
     </div>
 
     <div id="viewer-section" class="hidden">
@@ -80,12 +50,12 @@
         <div id="dropdown-menu"> 
             <div id="menu-title">Cargando...</div>
             <div id="menu-buttons">
-                <button id="prev-chapter-btn" disabled>◀ Anterior</button>
-                <button id="next-chapter-btn" disabled>Siguiente ➡️</button>
+                <button id="prev-chapter-btn">◀ Anterior</button>
+                <button id="next-chapter-btn">Siguiente ➡️</button>
             </div>
             <div id="scroll-controls-group">
-                <label id="autoscroll-label"><input id="autoscroll-toggle" type="checkbox" /> Activar Auto-Scroll</label>
-                <div id="scroll-speed-controls"><label>Velocidad:</label><input id="scroll-speed" max="10" type="range" value="5" /></div>
+                <label id="autoscroll-label"><input id="autoscroll-toggle" type="checkbox" /> Auto-Scroll</label>
+                <input id="scroll-speed" max="10" type="range" value="5" />
             </div>
         </div>
         <main id="manga-viewer"></main>
@@ -93,134 +63,95 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN DE RUTAS
         const BASE_PATH = 'mi_serie_completa/'; 
         
+        // --- CATÁLOGO CON CONTEO EXACTO ---
         const REMOTE_SERIES_CATALOG = {
-            'emperador_magico': { 'cap12': 17, 'cap11': 17, 'cap10': 15, 'cap9': 13, 'cap8': 17, 'cap7': 21, 'cap6': 54, 'cap5': 61 },
-            'mancion_post_apocaliptica': { 'cap510': 12, 'cap509': 12, 'cap508': 12, 'cap507': 12, 'cap506': 12, 'cap505': 12, 'cap504': 12, 'cap503': 12, 'cap502': 12, 'cap500': 12, 'cap499': 12, 'cap498': 12, 'cap497': 12, 'cap496': 12, 'cap495': 12 },
-            'maton_a_cargo': { 'cap80': 49, 'cap79': 55, 'cap78': 63 }
+            'maton_a_cargo': { 
+                'cap90': 66, 'cap89': 66, 'cap88': 69, 'cap87': 56, 'cap86': 47, 
+                'cap85': 65, 'cap84': 49, 'cap83': 70, 'cap82': 56, 'cap81': 48,
+                'cap80': 49, 'cap79': 56, 'cap78': 64 
+            }
         };
 
-        let seriesData = {}; 
-        let currentSeriesTitle = null;
-        let currentChapterId = null;
-        let currentChapterIndex = -1;
-        let controlsVisible = true;
-        let menuOpen = false; 
-        let scrollInterval;
+        let seriesData = {}, currentS = null, currentC = null, currentIndex = -1, menuOpen = false, scrollInt;
         
-        const dashboardSection = document.getElementById('dashboard-section');
-        const viewerSection = document.getElementById('viewer-section');
-        const mangaViewer = document.getElementById('manga-viewer');
-        const seriesListContainer = document.getElementById('series-list-container');
-        const dropdownMenu = document.getElementById('dropdown-menu'); 
-        const menuContainerTop = document.getElementById('menu-container-top'); 
-        const menuContainerBottom = document.getElementById('menu-container-bottom'); 
-        const menuToggleBtnTop = document.getElementById('menu-toggle-btn-top');
-        const menuToggleBtnBottom = document.getElementById('menu-toggle-btn-bottom');
-        const autoscrollToggle = document.getElementById('autoscroll-toggle');
-        const scrollSpeedRange = document.getElementById('scroll-speed');
-        const menuTitle = document.getElementById('menu-title');
-        const prevChapterBtn = document.getElementById('prev-chapter-btn');
-        const nextChapterBtn = document.getElementById('next-chapter-btn');
+        const dashboard = document.getElementById('dashboard-section'), viewer = document.getElementById('viewer-section'),
+              mangaViewer = document.getElementById('manga-viewer'), listCont = document.getElementById('series-list-container'),
+              dropMenu = document.getElementById('dropdown-menu'), topM = document.getElementById('menu-container-top'),
+              botM = document.getElementById('menu-container-bottom'), autoToggle = document.getElementById('autoscroll-toggle'),
+              speedRange = document.getElementById('scroll-speed'), mTitle = document.getElementById('menu-title');
 
-        const stopAutoscroll = () => { if (scrollInterval) clearInterval(scrollInterval); autoscrollToggle.checked = false; };
-        const hideControls = () => { menuContainerTop.classList.add('controls-off-screen-top'); menuContainerBottom.classList.add('controls-off-screen-bottom'); controlsVisible = false; };
-        const showControls = () => { menuContainerTop.classList.remove('controls-off-screen-top'); menuContainerBottom.classList.remove('controls-off-screen-bottom'); controlsVisible = true; };
-        const closeMenu = (showFixed = true) => { dropdownMenu.classList.remove('visible-menu'); menuOpen = false; if (showFixed && !autoscrollToggle.checked) showControls(); }
-        const toggleMenu = () => { if (menuOpen) closeMenu(); else { menuOpen = true; dropdownMenu.classList.add('visible-menu'); showControls(); } };
-
-        menuToggleBtnTop.addEventListener('click', () => showView('dashboard'));
-        menuToggleBtnBottom.addEventListener('click', (e) => { e.stopPropagation(); toggleMenu(); });
-        dropdownMenu.addEventListener('click', (e) => e.stopPropagation());
-        document.body.addEventListener('click', () => { if (menuOpen) closeMenu(); else if (autoscrollToggle.checked) { if (controlsVisible) hideControls(); else showControls(); } });
-
-        const showView = (viewName, chapterKey = null) => {
-            stopAutoscroll();
-            dashboardSection.classList.add('hidden');
-            viewerSection.classList.add('hidden');
-            closeMenu(false);
-            if (viewName === 'dashboard') dashboardSection.classList.remove('hidden');
-            else if (viewName === 'viewer') {
-                viewerSection.classList.remove('hidden');
-                if (chapterKey) {
-                    const [s, c] = chapterKey.split('|');
-                    currentSeriesTitle = s; currentChapterId = c;
-                    currentChapterIndex = seriesData[s].findIndex(item => item.id === c);
-                }
-                loadChapterIntoViewer(currentSeriesTitle, currentChapterId);
-            }
+        const stopScroll = () => { clearInterval(scrollInt); autoToggle.checked = false; };
+        const toggleControls = (show) => { 
+            topM.classList.toggle('controls-off-screen-top', !show); 
+            botM.classList.toggle('controls-off-screen-bottom', !show); 
         };
 
-        const startAutoscroll = (speed) => {
-            closeMenu(false); hideControls();
-            const interval = 100 - (speed * 9); 
-            if (scrollInterval) clearInterval(scrollInterval);
-            scrollInterval = setInterval(() => {
-                window.scrollBy(0, 3);
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { stopAutoscroll(); showControls(); }
-            }, interval);
+        const showView = (view, key = null) => {
+            stopScroll(); dashboard.classList.toggle('hidden', view !== 'dashboard'); viewer.classList.toggle('hidden', view !== 'viewer');
+            dropMenu.classList.remove('visible-menu'); menuOpen = false;
+            if (view === 'viewer' && key) {
+                const [s, c] = key.split('|'); currentS = s; currentC = c;
+                currentIndex = seriesData[s].findIndex(i => i.id === c);
+                loadChapter(s, c);
+            } else { window.scrollTo(0,0); }
         };
 
-        autoscrollToggle.addEventListener('change', (e) => { if (e.target.checked) startAutoscroll(scrollSpeedRange.value); else { stopAutoscroll(); showControls(); } });
-        scrollSpeedRange.addEventListener('input', (e) => { if (autoscrollToggle.checked) startAutoscroll(e.target.value); });
+        document.getElementById('menu-toggle-btn-top').onclick = () => showView('dashboard');
+        document.getElementById('menu-toggle-btn-bottom').onclick = (e) => { e.stopPropagation(); menuOpen = !menuOpen; dropMenu.classList.toggle('visible-menu', menuOpen); };
+        document.body.onclick = () => { if(menuOpen){ menuOpen = false; dropMenu.classList.remove('visible-menu'); } else if(autoToggle.checked) toggleControls(topM.classList.contains('controls-off-screen-top')); };
+        dropMenu.onclick = (e) => e.stopPropagation();
 
-        const updateNavigation = () => {
-            const chaps = seriesData[currentSeriesTitle];
-            prevChapterBtn.disabled = currentChapterIndex <= 0;
-            if (!prevChapterBtn.disabled) prevChapterBtn.textContent = `◀ Cap. ${chaps[currentChapterIndex - 1].id}`;
-            nextChapterBtn.disabled = currentChapterIndex >= chaps.length - 1;
-            if (!nextChapterBtn.disabled) nextChapterBtn.textContent = `Cap. ${chaps[currentChapterIndex + 1].id} ➡️`;
+        const startScroll = (s) => {
+            toggleControls(false); dropMenu.classList.remove('visible-menu'); menuOpen = false;
+            clearInterval(scrollInt); scrollInt = setInterval(() => { window.scrollBy(0, 3); if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) stopScroll(); }, 100 - (s * 9));
         };
 
-        prevChapterBtn.addEventListener('click', (e) => { e.stopPropagation(); closeMenu(); showView('viewer', `${currentSeriesTitle}|${seriesData[currentSeriesTitle][currentChapterIndex-1].id}`); });
-        nextChapterBtn.addEventListener('click', (e) => { e.stopPropagation(); closeMenu(); showView('viewer', `${currentSeriesTitle}|${seriesData[currentSeriesTitle][currentChapterIndex+1].id}`); });
+        autoToggle.onchange = (e) => { if(e.target.checked) startScroll(speedRange.value); else { stopScroll(); toggleControls(true); } };
+        speedRange.oninput = (e) => { if(autoToggle.checked) startScroll(e.target.value); };
 
-        function initializeRemoteSeries() {
-            for (const s in REMOTE_SERIES_CATALOG) {
-                seriesData[s] = [];
-                for (const c in REMOTE_SERIES_CATALOG[s]) {
-                    let urls = [];
-                    for (let i = 1; i <= REMOTE_SERIES_CATALOG[s][c]; i++) {
-                        // 🟢 FORMATO ACTUALIZADO: 1.webp, 2.webp...
-                        urls.push(`${BASE_PATH}${s}/${c}/${i}.webp`);
-                    }
-                    seriesData[s].push({ id: c, urls: urls });
-                }
-                seriesData[s].sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true })).reverse();
-            }
-            renderDashboard();
-        }
-
-        function renderDashboard() {
-            seriesListContainer.innerHTML = '';
-            Object.keys(seriesData).sort().forEach(s => {
-                const title = document.createElement('h2'); title.className = 'series-section-title'; title.textContent = s.toUpperCase().replace(/_/g, ' ');
-                seriesListContainer.appendChild(title);
-                const list = document.createElement('ul'); list.className = 'chapter-list-dynamic';
-                seriesData[s].forEach(c => {
-                    const li = document.createElement('li'); const a = document.createElement('a'); a.href = "#"; a.textContent = `${c.id.toUpperCase()} (${c.urls.length} páginas)`;
-                    a.onclick = (e) => { e.preventDefault(); showView('viewer', `${s}|${c.id}`); };
-                    li.appendChild(a); list.appendChild(li);
-                });
-                seriesListContainer.appendChild(list);
-            });
-        }
-
-        function loadChapterIntoViewer(s, c) {
-            const chap = seriesData[s].find(item => item.id === c);
-            window.scrollTo(0, 0); mangaViewer.innerHTML = '';
-            menuTitle.textContent = `${s.toUpperCase().replace(/_/g, ' ')} - ${c.toUpperCase()}`;
+        const loadChapter = (s, c) => {
+            const chap = seriesData[s].find(i => i.id === c);
+            window.scrollTo(0,0); mangaViewer.innerHTML = '';
+            mTitle.textContent = `${s.toUpperCase().replace(/_/g,' ')} - ${c.toUpperCase()}`;
             const frag = document.createDocumentFragment();
             chap.urls.forEach(url => {
                 const img = document.createElement('img'); img.src = url; img.className = 'manga-page'; img.loading = 'lazy'; frag.appendChild(img);
             });
-            mangaViewer.appendChild(frag);
-            updateNavigation(); showControls();
-        }
+            mangaViewer.appendChild(frag); toggleControls(true);
+            document.getElementById('prev-chapter-btn').disabled = currentIndex <= 0;
+            document.getElementById('next-chapter-btn').disabled = currentIndex >= seriesData[s].length - 1;
+        };
 
-        initializeRemoteSeries();
+        document.getElementById('prev-chapter-btn').onclick = () => showView('viewer', `${currentS}|${seriesData[currentS][currentIndex-1].id}`);
+        document.getElementById('next-chapter-btn').onclick = () => showView('viewer', `${currentS}|${seriesData[currentS][currentIndex+1].id}`);
+
+        function init() {
+            for (const s in REMOTE_SERIES_CATALOG) {
+                seriesData[s] = [];
+                for (const c in REMOTE_SERIES_CATALOG[s]) {
+                    let urls = [];
+                    const totalImgs = REMOTE_SERIES_CATALOG[s][c];
+                    // 🟢 AHORA EMPIEZA DESDE 0 HASTA TOTAL-1
+                    for (let i = 0; i < totalImgs; i++) urls.push(`${BASE_PATH}${s}/${c}/${i}.webp`);
+                    seriesData[s].push({ id: c, urls: urls });
+                }
+                seriesData[s].sort((a, b) => a.id.localeCompare(b.id, undefined, { numeric: true })).reverse();
+            }
+            listCont.innerHTML = '';
+            Object.keys(seriesData).sort().forEach(s => {
+                const t = document.createElement('h2'); t.className = 'series-section-title'; t.textContent = s.toUpperCase().replace(/_/g,' '); listCont.appendChild(t);
+                const ul = document.createElement('ul'); ul.className = 'chapter-list-dynamic';
+                seriesData[s].forEach(c => {
+                    const li = document.createElement('li'); const a = document.createElement('a'); a.href = "#"; a.textContent = `${c.id.toUpperCase()} (${c.urls.length} imgs)`;
+                    a.onclick = (e) => { e.preventDefault(); showView('viewer', `${s}|${c.id}`); };
+                    li.appendChild(a); ul.appendChild(li);
+                });
+                listCont.appendChild(ul);
+            });
+        }
+        init();
     </script>
 </body>
 </html>
