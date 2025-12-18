@@ -1,0 +1,300 @@
+1
+00:00:00,000 --> 00:00:05,000
+Qué?!
+No te preocupes hablamos con ellos.
+Está bien.
+Sucedió algo?
+Llegó este diciembre?
+
+2
+00:00:05,000 --> 00:00:10,000
+NECESITAS SACARTE LA REMERA TAMBIEN.
+TE DARÉ ROPA PARA QUE TE CAMBIES, VEN AQUI.
+ELLA TE ESTA ESPERANDO. APURATE.
+...VOLVERÉ PRONTO.
+
+3
+00:00:10,000 --> 00:00:16,000
+Qué pasó?
+Estaba perdido en mis pensamientos... no te vi entrar.
+Acabo de llegar.
+Aún no.
+
+4
+00:00:16,000 --> 00:00:21,000
+y ese ese también ya sean de tercer o cuarto año no pueden mirar a los ojos a los de primer año
+
+5
+00:00:21,000 --> 00:00:26,000
+Mejor tarde que nunca, así que, cuál es?
+Qué?
+No puedo escuchar...
+
+6
+00:00:26,000 --> 00:00:31,000
+Qué es esto?
+Debe doler...
+No te arde mucho?
+
+7
+00:00:31,000 --> 00:00:36,000
+SOPORTALO UN POCO.
+SÍ.
+...ESTÁ BIEN.
+ME SIENTO MUCHO MEJOR.
+
+8
+00:00:36,000 --> 00:00:41,000
+Crees que puedes moverte?
+Te duele mucho?
+No, estoy bien.
+Puedo moverme.
+
+9
+00:00:41,000 --> 00:00:46,000
+¿A DÓNDE VAS?
+A CASA.
+¿A ESTA HORA?
+SÍ.
+
+10
+00:00:46,000 --> 00:00:51,000
+No creo que sea una buena idea.
+Deberías quedarte aquí.
+Estaré bien.
+No te preocupes por mí.
+
+11
+00:00:51,000 --> 00:00:56,000
+TIENES QUE TENER CUIDADO.
+LO SÉ.
+NOS VEMOS LUEGO.
+ESTÁ BIEN.
+
+12
+00:00:56,000 --> 00:01:01,000
+Qué estás haciendo aquí?
+Te estaba esperando.
+Por qué?
+Tengo algo que decirte.
+
+13
+00:01:01,000 --> 00:01:06,000
+DIME.
+ES SOBRE ELLO.
+LO SABES?
+SÍ.
+
+14
+00:01:06,000 --> 00:01:11,000
+No puedo creerlo.
+Es la verdad.
+Cómo sucedió?
+No lo sé exactamente.
+
+15
+00:01:11,000 --> 00:01:16,000
+TENEMOS QUE HACER ALGO.
+LO SÉ.
+PERO QUÉ?
+PENSEMOS EN ELLO.
+
+16
+00:01:16,000 --> 00:01:21,000
+No hay mucho tiempo.
+Lo sé, lo sé.
+Entonces, apurémonos.
+Está bien.
+
+17
+00:01:21,000 --> 00:01:26,000
+DÓNDE ESTÁ ÉL?
+NO LO SÉ.
+BUSQUÉMOSLO.
+SÍ.
+
+18
+00:01:26,000 --> 00:01:31,000
+Crees que está allí?
+Podría ser.
+Vamos a ver.
+Está bien.
+
+19
+00:01:31,000 --> 00:01:36,000
+ESPERA.
+QUÉ PASA?
+MIRA ALLÍ.
+QUÉ ES?
+
+20
+00:01:36,000 --> 00:01:41,000
+Parece alguien.
+Es él?
+No estoy seguro.
+Acerquémonos.
+
+21
+00:01:41,000 --> 00:01:46,000
+TEN CUIDADO.
+SÍ, LO TENDRÉ.
+ESTÁS LISTO?
+SÍ.
+
+22
+00:01:46,000 --> 00:01:51,000
+Hola?
+Hay alguien allí?
+Quién eres?
+Solo somos nosotros.
+
+23
+00:01:51,000 --> 00:01:56,000
+QUÉ ESTÁN HACIENDO AQUÍ?
+TE ESTÁBAMOS BUSCANDO.
+POR QUÉ?
+TENEMOS QUE HABLAR.
+
+24
+00:01:56,000 --> 00:02:01,000
+No tengo nada que decir.
+Por favor, escucha.
+Es importante.
+Está bien, hablen.
+
+25
+00:02:01,000 --> 00:02:06,000
+GRACIAS.
+DE NADA.
+ENTONCES...
+SÍ?
+
+26
+00:02:06,000 --> 00:02:11,000
+Es sobre el pasado.
+Lo sé.
+No podemos olvidarlo.
+Lo entiendo.
+
+27
+00:02:11,000 --> 00:02:16,000
+PERO TENEMOS QUE SEGUIR ADELANTE.
+CÓMO?
+JUNTOS.
+TAL VEZ TIENES RAZÓN.
+
+28
+00:02:16,000 --> 00:02:21,000
+Lo intentaremos.
+Gracias por entender.
+No hay problema.
+Entonces, vamos.
+
+29
+00:02:21,000 --> 00:02:26,000
+A DÓNDE?
+DE REGRESO.
+ESTÁ BIEN.
+VAMOS.
+
+30
+00:02:26,000 --> 00:02:31,000
+Crees que funcionará?
+Eso espero.
+Yo también.
+Bueno, ya veremos.
+
+31
+00:02:31,000 --> 00:02:36,000
+ESTÁS BIEN?
+SÍ, ESTOY BIEN.
+ESTÁS SEGURO?
+SÍ, NO TE PREOCUPES.
+
+32
+00:02:36,000 --> 00:02:41,000
+Me alegra escuchar eso.
+Gracias.
+No hay de qué.
+Sigamos caminando.
+
+33
+00:02:41,000 --> 00:02:46,000
+SÍ.
+CASI LLEGAMOS.
+BUENO.
+MIRA ALLÁ.
+
+34
+00:02:46,000 --> 00:02:51,000
+Es la entrada.
+Finalmente.
+Entremos.
+Sí.
+
+35
+00:02:51,000 --> 00:02:56,000
+QUÉ PASA AHORA?
+NO LO SÉ.
+ESPEREMOS Y VEREMOS.
+ESTÁ BIEN.
+
+36
+00:02:56,000 --> 00:03:01,000
+Todo parece tranquilo.
+Demasiado tranquilo.
+Tienes razón.
+Ten los ojos abiertos.
+
+37
+00:03:01,000 --> 00:03:06,000
+SÍ, LO HARÉ.
+ESTÁS ASUSTADO?
+UN POCO.
+YO TAMBIÉN.
+
+38
+00:03:06,000 --> 00:03:11,000
+Pero tenemos que ser fuertes.
+Lo sé.
+Podemos hacerlo.
+Sí, podemos.
+
+39
+00:03:11,000 --> 00:03:16,000
+Supongo. Lo disfrutaste?
+
+40
+00:03:16,000 --> 00:03:21,000
+me estás haciendo enfrentarlo
+solo quiero escucharte decirlo
+quiero que lo aceptes y hables
+
+41
+00:03:21,000 --> 00:03:26,000
+Ji boram.
+Baek soohyuk...?
+Tu y yo...
+Tenemos algo pendiente.
+
+42
+00:03:26,000 --> 00:03:31,000
+¿POR QUE NO TE MUEVES?
+SI SIGUES HACIENDO ESTO ME ABALANZARÉ SOBRE TI.
+PFFT.
+¿EN TU CONDICIÓN?
+
+43
+00:03:31,000 --> 00:03:36,000
+PARECE QUE YO SERE LA QUE...
+LO TERMINE HACIENDO...
+HA PASADO UN TIEMPO.
+
+44
+00:03:36,000 --> 00:03:45,000
+DAEGUN REALMENTE SE VE MOLESTO. UNO ES ASI.
+PUEDE SENTIRSE UN POCO OCASIONADO.
+JOSERIA KOTOR FUE DEPURADO DE LA FUERZA. ES UNO DE LOS REYES CELESTIALES, ELEGIDO.
+ESTO ES UNA DE LAS SUPOSICIONES.
+PERO RITO DEBE SER UNO DE LOS HOMBRES DE TRAJE.
+PERO PARECE QUE SE ENCUENTRAN...
