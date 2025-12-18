@@ -3,88 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MI LECTOR GITHUB - RESPONSIVO</title>
+    <title>LECTOR GITHUB - ORGANIZADO</title>
     <style>
-        :root { --bg-color: #121212; --text-color: #EAEAEA; --primary-color: #333; --main-series-color: #FFC107; }
-        
-        /* Ajuste para evitar scroll horizontal en móviles */
-        html, body { 
-            overflow-x: hidden !important; 
-            width: 100% !important; 
-            margin: 0 !important; 
-            padding: 0 !important; 
-            touch-action: manipulation; /* Mejora respuesta táctil */
-        }
-        
-        body { background-color: var(--bg-color); color: var(--text-color); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-
-        /* Dashboard Responsivo */
+        :root { --bg-color: #121212; --text-color: #EAEAEA; --primary-color: #333; --main-series-color: #FFC107; --download-color: #0088cc; }
+        html, body { overflow-x: hidden !important; width: 100% !important; margin: 0 !important; padding: 0 !important; touch-action: manipulation; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
         .page-wrapper { max-width: 800px; margin: 0 auto; padding: 15px; box-sizing: border-box; }
         .hero-banner { background: #1c1c1c; height: 80px; display: flex; justify-content: center; align-items: center; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333; }
-        .hero-banner h1 { color: var(--main-series-color); font-size: 1.5em; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
-
+        .hero-banner h1 { color: var(--main-series-color); font-size: 1.5em; margin: 0; text-transform: uppercase; }
         .series-section-title { font-size: 1.3em; color: var(--main-series-color); margin-top: 25px; border-bottom: 2px solid var(--main-series-color); padding-bottom: 5px; }
-        
         .chapter-list-dynamic { list-style: none; padding: 0; margin-top: 15px; }
         .chapter-list-dynamic li { background-color: var(--primary-color); margin-bottom: 10px; border-radius: 6px; overflow: hidden; }
-        .chapter-list-dynamic a { display: block; padding: 18px; font-size: 1.1em; color: var(--text-color); text-decoration: none; transition: background 0.3s; }
-        .chapter-list-dynamic a:active { background-color: #555; }
-
-        /* Visor Responsivo */
+        .chapter-list-dynamic a { display: block; padding: 18px; font-size: 1.1em; color: var(--text-color); text-decoration: none; }
         #viewer-section { background-color: #000; min-height: 100vh; width: 100%; }
         #manga-viewer { padding-top: 65px; padding-bottom: 70px; width: 100%; }
-        
-        /* Auto-ajuste de imágenes */
-        .manga-page { 
-            display: block; 
-            width: 100%; 
-            max-width: 100%; 
-            height: auto; 
-            margin: 0 auto; 
-            object-fit: contain;
-        }
-
-        /* Menús Fijos */
-        #menu-container-top, #menu-container-bottom { 
-            position: fixed; left: 0; right: 0; width: 100%; height: 60px;
-            background-color: rgba(13, 13, 13, 0.95); z-index: 1000; 
-            padding: 0 15px; display: flex; justify-content: center; align-items: center; 
-            transition: all 0.3s ease; backdrop-filter: blur(5px);
-        }
+        .manga-page { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; object-fit: contain; }
+        #menu-container-top, #menu-container-bottom { position: fixed; left: 0; right: 0; width: 100%; height: 60px; background-color: rgba(13, 13, 13, 0.95); z-index: 1000; padding: 0 15px; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; backdrop-filter: blur(5px); }
         #menu-container-top { top: 0; border-bottom: 1px solid #333; }
         #menu-container-bottom { bottom: 0; border-top: 1px solid #333; }
-        
         .controls-off-screen-top { transform: translateY(-100%); opacity: 0; }
         .controls-off-screen-bottom { transform: translateY(100%); opacity: 0; }
-
-        .menu-toggle-btn { 
-            background-color: #222; color: white; border: 1px solid #444; 
-            padding: 10px; font-size: 1em; cursor: pointer; border-radius: 5px; width: 100%; max-width: 400px;
-        }
-
-        /* Menú Flotante (Ajustado para Móvil) */
-        #dropdown-menu { 
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 85%; max-width: 320px; background-color: #1c1c1c; padding: 20px; 
-            border-radius: 12px; border: 1px solid #444; box-shadow: 0 0 20px rgba(0,0,0,0.8); 
-            flex-direction: column; gap: 15px; display: flex; opacity: 0; visibility: hidden; z-index: 1001; 
-        }
+        .menu-toggle-btn { background-color: #222; color: white; border: 1px solid #444; padding: 10px; font-size: 1em; cursor: pointer; border-radius: 5px; width: 100%; max-width: 400px; }
+        #dropdown-menu { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 320px; background-color: #1c1c1c; padding: 20px; border-radius: 12px; border: 1px solid #444; box-shadow: 0 0 20px rgba(0,0,0,0.8); flex-direction: column; gap: 15px; display: flex; opacity: 0; visibility: hidden; z-index: 1001; }
         .visible-menu { opacity: 1 !important; visibility: visible !important; }
-
         #menu-buttons { display: flex; gap: 10px; }
-        #prev-chapter-btn { background-color: #444; color: white; } 
-        #next-chapter-btn { background-color: var(--main-series-color); color: black; font-weight: bold; } 
-        
+        #prev-chapter-btn { background-color: #444; color: white; flex: 1; } 
+        #next-chapter-btn { background-color: var(--main-series-color); color: black; font-weight: bold; flex: 1; }
+        #download-sub-btn { background-color: var(--download-color); color: white; font-weight: bold; padding: 12px; border-radius: 5px; text-decoration: none; text-align: center; border: none; cursor: pointer; width: 100%; }
         #scroll-controls-group { background-color: #2a2a2a; padding: 15px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px; }
-        input[type="range"] { width: 100%; accent-color: var(--main-series-color); }
-        
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <div id="dashboard-section" class="page-wrapper">
-        <div class="hero-banner"><h1>MIS MANGAS</h1></div>
+        <div class="hero-banner"><h1>MI BIBLIOTECA</h1></div>
         <div id="series-list-container"></div>
     </div>
 
@@ -92,11 +45,12 @@
         <div id="menu-container-top"><button id="menu-toggle-btn-top" class="menu-toggle-btn">🏠 PANEL PRINCIPAL</button></div>
         
         <div id="dropdown-menu"> 
-            <div id="menu-title" style="text-align:center; font-weight:bold; border-bottom:1px solid #444; padding-bottom:10px;">MENÚ</div>
+            <div id="menu-title" style="text-align:center; font-weight:bold; border-bottom:1px solid #444; padding-bottom:10px;">OPCIONES</div>
             <div id="menu-buttons">
-                <button id="prev-chapter-btn">◀ ANTERIOR</button>
-                <button id="next-chapter-btn">SIGUIENTE ▶</button>
+                <button id="prev-chapter-btn">◀ ANT.</button>
+                <button id="next-chapter-btn">SIG. ▶</button>
             </div>
+            <button id="download-sub-btn">📥 DESCARGAR SUBS (.SRT)</button>
             <div id="scroll-controls-group">
                 <label style="display:flex; align-items:center; gap:10px; font-size:0.9em;">
                     <input id="autoscroll-toggle" type="checkbox" style="transform:scale(1.2);"> AUTO-SCROLL
@@ -106,8 +60,7 @@
         </div>
 
         <main id="manga-viewer"></main>
-        
-        <div id="menu-container-bottom"><button id="menu-toggle-btn-bottom" class="menu-toggle-btn">⚙️ OPCIONES</button></div>
+        <div id="menu-container-bottom"><button id="menu-toggle-btn-bottom" class="menu-toggle-btn">⚙️ MENÚ</button></div>
     </div>
 
     <script>
@@ -131,8 +84,9 @@
               topM = document.getElementById('menu-container-top'),
               botM = document.getElementById('menu-container-bottom'), 
               autoToggle = document.getElementById('autoscroll-toggle'),
-              speedRange = document.getElementById('scroll-speed'), 
-              mTitle = document.getElementById('menu-title');
+              speedRange = document.getElementById('scroll-speed'),
+              mTitle = document.getElementById('menu-title'),
+              btnDownload = document.getElementById('download-sub-btn');
 
         const stopScroll = () => { clearInterval(scrollInt); autoToggle.checked = false; };
         const toggleControls = (show) => { 
@@ -141,80 +95,54 @@
         };
 
         const showView = (view, key = null) => {
-            stopScroll(); 
-            dashboard.classList.toggle('hidden', view !== 'dashboard'); 
-            viewer.classList.toggle('hidden', view !== 'viewer');
+            stopScroll(); dashboard.classList.toggle('hidden', view !== 'dashboard'); viewer.classList.toggle('hidden', view !== 'viewer');
             dropMenu.classList.remove('visible-menu'); menuOpen = false;
-            
             if (view === 'viewer' && key) {
-                const [s, c] = key.split('|'); 
-                currentS = s; 
-                currentC = c;
+                const [s, c] = key.split('|'); currentS = s; currentC = c;
                 currentIndex = seriesData[s].findIndex(i => i.id === c);
                 loadChapter(s, c);
             } else { window.scrollTo(0,0); }
         };
 
         document.getElementById('menu-toggle-btn-top').onclick = () => showView('dashboard');
-        document.getElementById('menu-toggle-btn-bottom').onclick = (e) => { 
-            e.stopPropagation(); 
-            menuOpen = !menuOpen; 
-            dropMenu.classList.toggle('visible-menu', menuOpen); 
-        };
-
-        document.body.onclick = () => { 
-            if(menuOpen){ 
-                menuOpen = false; 
-                dropMenu.classList.remove('visible-menu'); 
-            } else if(autoToggle.checked) {
-                toggleControls(topM.classList.contains('controls-off-screen-top')); 
-            }
-        };
+        document.getElementById('menu-toggle-btn-bottom').onclick = (e) => { e.stopPropagation(); menuOpen = !menuOpen; dropMenu.classList.toggle('visible-menu', menuOpen); };
+        document.body.onclick = () => { if(menuOpen){ menuOpen = false; dropMenu.classList.remove('visible-menu'); } else if(autoToggle.checked) toggleControls(topM.classList.contains('controls-off-screen-top')); };
 
         const startScroll = (s) => {
             toggleControls(false); dropMenu.classList.remove('visible-menu'); menuOpen = false;
-            clearInterval(scrollInt); 
-            scrollInt = setInterval(() => { 
-                window.scrollBy(0, 2); 
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) stopScroll(); 
-            }, 110 - (s * 10));
+            clearInterval(scrollInt); scrollInt = setInterval(() => { window.scrollBy(0, 2); if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) stopScroll(); }, 110 - (s * 10));
         };
 
         autoToggle.onchange = (e) => { if(e.target.checked) startScroll(speedRange.value); else { stopScroll(); toggleControls(true); } };
-        speedRange.oninput = (e) => { if(autoToggle.checked) startScroll(e.target.value); };
 
         const loadChapter = (s, c) => {
             const chap = seriesData[s].find(i => i.id === c);
-            window.scrollTo(0,0); 
-            mangaViewer.innerHTML = '';
+            window.scrollTo(0,0); mangaViewer.innerHTML = '';
             mTitle.textContent = `${c.toUpperCase()}`;
-            
             const frag = document.createDocumentFragment();
             chap.urls.forEach(url => {
-                const img = document.createElement('img'); 
-                img.src = url; 
-                img.className = 'manga-page'; 
-                img.loading = 'lazy'; 
-                frag.appendChild(img);
+                const img = document.createElement('img'); img.src = url; img.className = 'manga-page'; img.loading = 'lazy'; frag.appendChild(img);
             });
-            mangaViewer.appendChild(frag); 
-            toggleControls(true);
-
-            // CORRECCIÓN DE NAVEGACIÓN:
-            // Dado que la lista está en reversa (cap90 arriba), 
-            // el botón "Siguiente" (cap más alto) es el índice ANTERIOR (-1)
-            // el botón "Anterior" (cap más bajo) es el índice SIGUIENTE (+1)
+            mangaViewer.appendChild(frag); toggleControls(true);
             document.getElementById('next-chapter-btn').disabled = currentIndex <= 0;
             document.getElementById('prev-chapter-btn').disabled = currentIndex >= seriesData[s].length - 1;
         };
 
-        // Lógica de botones corregida para lista invertida
-        document.getElementById('next-chapter-btn').onclick = () => {
-            if(currentIndex > 0) showView('viewer', `${currentS}|${seriesData[currentS][currentIndex-1].id}`);
+        // LÓGICA DE DESCARGA DE SUBTÍTULOS ACTUALIZADA (DENTRO DE LA SERIE)
+        btnDownload.onclick = () => {
+            if (!currentC || !currentS) return;
+            // Construye la ruta: mi_serie_completa/maton_a_cargo/subtitulos/cap78.srt
+            const fileUrl = `${BASE_PATH}${currentS}/subtitulos/${currentC}.srt`;
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = `${currentC}.srt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         };
-        document.getElementById('prev-chapter-btn').onclick = () => {
-            if(currentIndex < seriesData[currentS].length - 1) showView('viewer', `${currentS}|${seriesData[currentS][currentIndex+1].id}`);
-        };
+
+        document.getElementById('next-chapter-btn').onclick = () => { if(currentIndex > 0) showView('viewer', `${currentS}|${seriesData[currentS][currentIndex-1].id}`); };
+        document.getElementById('prev-chapter-btn').onclick = () => { if(currentIndex < seriesData[currentS].length - 1) showView('viewer', `${currentS}|${seriesData[currentS][currentIndex+1].id}`); };
 
         function init() {
             for (const s in REMOTE_SERIES_CATALOG) {
@@ -225,14 +153,11 @@
                     for (let i = 0; i < totalImgs; i++) urls.push(`${BASE_PATH}${s}/${c}/${i}.webp`);
                     seriesData[s].push({ id: c, urls: urls });
                 }
-                // Ordenar para que el número más grande esté en el índice 0
                 seriesData[s].sort((a, b) => b.id.localeCompare(a.id, undefined, { numeric: true }));
             }
-            
             listCont.innerHTML = '';
             Object.keys(seriesData).sort().forEach(s => {
-                const t = document.createElement('h2'); t.className = 'series-section-title'; t.textContent = s.toUpperCase().replace(/_/g,' '); 
-                listCont.appendChild(t);
+                const t = document.createElement('h2'); t.className = 'series-section-title'; t.textContent = s.toUpperCase().replace(/_/g,' '); listCont.appendChild(t);
                 const ul = document.createElement('ul'); ul.className = 'chapter-list-dynamic';
                 seriesData[s].forEach(c => {
                     const li = document.createElement('li'); const a = document.createElement('a'); a.href = "#"; a.textContent = `${c.id.toUpperCase()} (${c.urls.length} imgs)`;
