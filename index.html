@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LECTOR GITHUB - ORGANIZADO</title>
+    <title>BIBLIOTECA MANGA - ACTUALIZADO</title>
     <style>
         :root { --bg-color: #121212; --text-color: #EAEAEA; --primary-color: #333; --main-series-color: #FFC107; --download-color: #0088cc; }
         html, body { overflow-x: hidden !important; width: 100% !important; margin: 0 !important; padding: 0 !important; touch-action: manipulation; }
@@ -66,8 +66,12 @@
     <script>
         const BASE_PATH = 'mi_serie_completa/'; 
         
+        // --- CATÁLOGO ACTUALIZADO CON TUS 3 NUEVOS CAPÍTULOS ---
         const REMOTE_SERIES_CATALOG = {
             'maton_a_cargo': { 
+                'cap93': 39,          // Empieza en 0, termina en 38 (39 imgs)
+                'cap92': [1, 66],     // Empieza en 1, termina en 66
+                'cap91': [1, 65],     // Empieza en 1, termina en 65
                 'cap90': 66, 'cap89': 66, 'cap88': 69, 'cap87': 56, 'cap86': 47, 
                 'cap85': 65, 'cap84': 49, 'cap83': 70, 'cap82': 56, 'cap81': 48,
                 'cap80': 49, 'cap79': 56, 'cap78': 64 
@@ -128,10 +132,8 @@
             document.getElementById('prev-chapter-btn').disabled = currentIndex >= seriesData[s].length - 1;
         };
 
-        // LÓGICA DE DESCARGA DE SUBTÍTULOS ACTUALIZADA (DENTRO DE LA SERIE)
         btnDownload.onclick = () => {
             if (!currentC || !currentS) return;
-            // Construye la ruta: mi_serie_completa/maton_a_cargo/subtitulos/cap78.srt
             const fileUrl = `${BASE_PATH}${currentS}/subtitulos/${currentC}.srt`;
             const link = document.createElement('a');
             link.href = fileUrl;
@@ -149,8 +151,11 @@
                 seriesData[s] = [];
                 for (const c in REMOTE_SERIES_CATALOG[s]) {
                     let urls = [];
-                    const totalImgs = REMOTE_SERIES_CATALOG[s][c];
-                    for (let i = 0; i < totalImgs; i++) urls.push(`${BASE_PATH}${s}/${c}/${i}.webp`);
+                    let start = 0, end = 0;
+                    const config = REMOTE_SERIES_CATALOG[s][c];
+                    if (Array.isArray(config)) { start = config[0]; end = config[1]; } 
+                    else { start = 0; end = config - 1; }
+                    for (let i = start; i <= end; i++) { urls.push(`${BASE_PATH}${s}/${c}/${i}.webp`); }
                     seriesData[s].push({ id: c, urls: urls });
                 }
                 seriesData[s].sort((a, b) => b.id.localeCompare(a.id, undefined, { numeric: true }));
