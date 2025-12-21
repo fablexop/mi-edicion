@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MI BIBLIOTECA - MULTI-SERIE</title>
+    <title>MI LECTOR GITHUB - SCROLL PRO</title>
     <style>
         :root { --bg-color: #121212; --text-color: #EAEAEA; --primary-color: #333; --main-series-color: #FFC107; --download-color: #0088cc; }
         html, body { overflow-x: hidden !important; width: 100% !important; margin: 0 !important; padding: 0 !important; touch-action: manipulation; }
@@ -17,7 +17,7 @@
         .chapter-list-dynamic a { display: block; padding: 18px; font-size: 1.1em; color: var(--text-color); text-decoration: none; }
         #viewer-section { background-color: #000; min-height: 100vh; width: 100%; }
         #manga-viewer { padding-top: 65px; padding-bottom: 70px; width: 100%; }
-        .manga-page { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; object-fit: contain; }
+        .manga-page { display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto; object-fit: contain; border-bottom: 1px solid #111; }
         #menu-container-top, #menu-container-bottom { position: fixed; left: 0; right: 0; width: 100%; height: 60px; background-color: rgba(13, 13, 13, 0.95); z-index: 1000; padding: 0 15px; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; backdrop-filter: blur(5px); }
         #menu-container-top { top: 0; border-bottom: 1px solid #333; }
         #menu-container-bottom { bottom: 0; border-top: 1px solid #333; }
@@ -27,11 +27,13 @@
         #dropdown-menu { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 320px; background-color: #1c1c1c; padding: 20px; border-radius: 12px; border: 1px solid #444; box-shadow: 0 0 20px rgba(0,0,0,0.8); flex-direction: column; gap: 15px; display: flex; opacity: 0; visibility: hidden; z-index: 1001; }
         .visible-menu { opacity: 1 !important; visibility: visible !important; }
         #menu-buttons { display: flex; gap: 10px; }
+        #prev-chapter-btn, #next-chapter-btn { padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
         #prev-chapter-btn { background-color: #444; color: white; flex: 1; } 
         #next-chapter-btn { background-color: var(--main-series-color); color: black; font-weight: bold; flex: 1; }
         #download-sub-btn { background-color: var(--download-color); color: white; font-weight: bold; padding: 12px; border-radius: 5px; text-decoration: none; text-align: center; border: none; cursor: pointer; width: 100%; }
         #scroll-controls-group { background-color: #2a2a2a; padding: 15px; border-radius: 8px; display: flex; flex-direction: column; gap: 12px; }
         .hidden { display: none !important; }
+        input[type="range"] { width: 100%; accent-color: var(--main-series-color); cursor: pointer; }
     </style>
 </head>
 <body>
@@ -42,7 +44,10 @@
     </div>
 
     <div id="viewer-section" class="hidden">
-        <div id="menu-container-top"><button id="menu-toggle-btn-top" class="menu-toggle-btn">🏠 PANEL PRINCIPAL</button></div>
+        <div id="menu-container-top">
+            <button id="menu-toggle-btn-top" class="menu-toggle-btn">🏠 PANEL PRINCIPAL</button>
+        </div>
+        
         <div id="dropdown-menu"> 
             <div id="menu-title" style="text-align:center; font-weight:bold; border-bottom:1px solid #444; padding-bottom:10px;">OPCIONES</div>
             <div id="menu-buttons">
@@ -50,13 +55,21 @@
                 <button id="next-chapter-btn">SIG. ▶</button>
             </div>
             <button id="download-sub-btn">📥 DESCARGAR SUBS (.SRT)</button>
+            
             <div id="scroll-controls-group">
-                <label style="display:flex; align-items:center; gap:10px; font-size:0.9em;"><input id="autoscroll-toggle" type="checkbox"> AUTO-SCROLL</label>
-                <input id="scroll-speed" max="10" min="1" type="range" value="5">
+                <label style="display:flex; align-items:center; justify-content:space-between; font-size:0.9em;">
+                    <span>AUTO-SCROLL</span>
+                    <input id="autoscroll-toggle" type="checkbox" style="width:20px; height:20px;">
+                </label>
+                <label style="font-size:0.8em; color:#bbb;">VELOCIDAD: <span id="speed-val">5</span></label>
+                <input id="scroll-speed" max="20" min="1" type="range" value="5">
             </div>
         </div>
+
         <main id="manga-viewer"></main>
-        <div id="menu-container-bottom"><button id="menu-toggle-btn-bottom" class="menu-toggle-btn">⚙️ MENÚ</button></div>
+        <div id="menu-container-bottom">
+            <button id="menu-toggle-btn-bottom" class="menu-toggle-btn">⚙️ MENÚ DE LECTURA</button>
+        </div>
     </div>
 
     <script>
@@ -77,19 +90,61 @@
         };
 
         let seriesData = {}, currentS = null, currentC = null, currentIndex = -1, menuOpen = false, scrollInt;
-        const dashboard = document.getElementById('dashboard-section'), viewer = document.getElementById('viewer-section'),
-              mangaViewer = document.getElementById('manga-viewer'), listCont = document.getElementById('series-list-container'),
-              dropMenu = document.getElementById('dropdown-menu'), topM = document.getElementById('menu-container-top'),
-              botM = document.getElementById('menu-container-bottom'), autoToggle = document.getElementById('autoscroll-toggle'),
-              speedRange = document.getElementById('scroll-speed'), mTitle = document.getElementById('menu-title'),
+        
+        const dashboard = document.getElementById('dashboard-section'), 
+              viewer = document.getElementById('viewer-section'),
+              mangaViewer = document.getElementById('manga-viewer'), 
+              listCont = document.getElementById('series-list-container'),
+              dropMenu = document.getElementById('dropdown-menu'), 
+              topM = document.getElementById('menu-container-top'),
+              botM = document.getElementById('menu-container-bottom'), 
+              autoToggle = document.getElementById('autoscroll-toggle'),
+              speedRange = document.getElementById('scroll-speed'),
+              speedVal = document.getElementById('speed-val'),
+              mTitle = document.getElementById('menu-title'),
               btnDownload = document.getElementById('download-sub-btn');
 
-        const stopScroll = () => { clearInterval(scrollInt); autoToggle.checked = false; };
-        const toggleControls = (show) => { topM.classList.toggle('controls-off-screen-top', !show); botM.classList.toggle('controls-off-screen-bottom', !show); };
+        const stopScroll = () => { 
+            clearInterval(scrollInt); 
+            autoToggle.checked = false; 
+            toggleControls(true);
+        };
+
+        const toggleControls = (show) => { 
+            topM.classList.toggle('controls-off-screen-top', !show); 
+            botM.classList.toggle('controls-off-screen-bottom', !show); 
+        };
+
+        const startScroll = (s) => {
+            clearInterval(scrollInt);
+            toggleControls(false);
+            const interval = 105 - (s * 5); // Cálculo más estable
+            scrollInt = setInterval(() => {
+                window.scrollBy(0, 1); 
+                // Detener si llega al final de la página
+                if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 2) {
+                    stopScroll();
+                }
+            }, interval);
+        };
+
+        // Eventos de Scroll
+        autoToggle.onchange = (e) => {
+            if(e.target.checked) startScroll(speedRange.value);
+            else stopScroll();
+        };
+
+        speedRange.oninput = () => {
+            speedVal.textContent = speedRange.value;
+            if(autoToggle.checked) startScroll(speedRange.value);
+        };
 
         const showView = (view, key = null) => {
-            stopScroll(); dashboard.classList.toggle('hidden', view !== 'dashboard'); viewer.classList.toggle('hidden', view !== 'viewer');
-            dropMenu.classList.remove('visible-menu'); menuOpen = false;
+            stopScroll(); 
+            dashboard.classList.toggle('hidden', view !== 'dashboard'); 
+            viewer.classList.toggle('hidden', view !== 'viewer');
+            dropMenu.classList.remove('visible-menu'); 
+            menuOpen = false;
             if (view === 'viewer' && key) {
                 const [s, c] = key.split('|'); currentS = s; currentC = c;
                 currentIndex = seriesData[s].findIndex(i => i.id === c);
@@ -98,18 +153,35 @@
         };
 
         document.getElementById('menu-toggle-btn-top').onclick = () => showView('dashboard');
-        document.getElementById('menu-toggle-btn-bottom').onclick = (e) => { e.stopPropagation(); menuOpen = !menuOpen; dropMenu.classList.toggle('visible-menu', menuOpen); };
-        document.body.onclick = () => { if(menuOpen){ menuOpen = false; dropMenu.classList.remove('visible-menu'); } };
+        
+        document.getElementById('menu-toggle-btn-bottom').onclick = (e) => { 
+            e.stopPropagation(); 
+            menuOpen = !menuOpen; 
+            dropMenu.classList.toggle('visible-menu', menuOpen); 
+        };
+
+        document.body.onclick = () => { 
+            if(menuOpen){ 
+                menuOpen = false; 
+                dropMenu.classList.remove('visible-menu'); 
+            } 
+        };
 
         const loadChapter = (s, c) => {
             const chap = seriesData[s].find(i => i.id === c);
-            window.scrollTo(0,0); mangaViewer.innerHTML = '';
+            window.scrollTo(0,0); 
+            mangaViewer.innerHTML = '';
             mTitle.textContent = `${c.toUpperCase()}`;
             const frag = document.createDocumentFragment();
             chap.urls.forEach(url => {
-                const img = document.createElement('img'); img.src = url; img.className = 'manga-page'; img.loading = 'lazy'; frag.appendChild(img);
+                const img = document.createElement('img'); 
+                img.src = url; 
+                img.className = 'manga-page'; 
+                img.loading = 'lazy'; 
+                frag.appendChild(img);
             });
-            mangaViewer.appendChild(frag); toggleControls(true);
+            mangaViewer.appendChild(frag); 
+            toggleControls(true);
             document.getElementById('next-chapter-btn').disabled = currentIndex <= 0;
             document.getElementById('prev-chapter-btn').disabled = currentIndex >= seriesData[s].length - 1;
         };
@@ -125,8 +197,12 @@
             document.body.removeChild(link);
         };
 
-        document.getElementById('next-chapter-btn').onclick = () => { if(currentIndex > 0) showView('viewer', `${currentS}|${seriesData[currentS][currentIndex-1].id}`); };
-        document.getElementById('prev-chapter-btn').onclick = () => { if(currentIndex < seriesData[currentS].length - 1) showView('viewer', `${currentS}|${seriesData[currentS][currentIndex+1].id}`); };
+        document.getElementById('next-chapter-btn').onclick = () => { 
+            if(currentIndex > 0) showView('viewer', `${currentS}|${seriesData[currentS][currentIndex-1].id}`); 
+        };
+        document.getElementById('prev-chapter-btn').onclick = () => { 
+            if(currentIndex < seriesData[currentS].length - 1) showView('viewer', `${currentS}|${seriesData[currentS][currentIndex+1].id}`); 
+        };
 
         function init() {
             for (const s in REMOTE_SERIES_CATALOG) {
@@ -146,9 +222,13 @@
                 const t = document.createElement('h2'); t.className = 'series-section-title'; t.textContent = s.replace(/_/g,' '); listCont.appendChild(t);
                 const ul = document.createElement('ul'); ul.className = 'chapter-list-dynamic';
                 seriesData[s].forEach(c => {
-                    const li = document.createElement('li'); const a = document.createElement('a'); a.href = "#"; a.textContent = `${c.id.toUpperCase()} (${c.urls.length} imgs)`;
+                    const li = document.createElement('li'); 
+                    const a = document.createElement('a'); 
+                    a.href = "#"; 
+                    a.textContent = `${c.id.toUpperCase()} (${c.urls.length} imgs)`;
                     a.onclick = (e) => { e.preventDefault(); showView('viewer', `${s}|${c.id}`); };
-                    li.appendChild(a); ul.appendChild(li);
+                    li.appendChild(a); 
+                    ul.appendChild(li);
                 });
                 listCont.appendChild(ul);
             });
