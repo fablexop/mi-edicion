@@ -75,12 +75,12 @@
                 'cap83': 70, 'cap82': 56, 'cap81': 48, 'cap80': 49, 'cap79': 56, 'cap78': 64 
             },
             'emperador_magico': {
-                // Nuevos capítulos 31-40 con sus rangos específicos
-                'cap40': [2, 6], 'cap39': [2, 5], 'cap38': [2, 7], 
-                'cap37': [1, 9], 'cap36': [1, 8], 'cap35': [1, 8], 
-                'cap34': [1, 9], 'cap33': [1, 7], 'cap32': [1, 8], 
-                'cap31': [1, 7],
-                // Capítulos anteriores
+                // Aquí usamos "Cap" para los nuevos (31-40) porque me dijiste que están con Mayúscula
+                'Cap40': [2, 6], 'Cap39': [2, 5], 'Cap38': [2, 7], 
+                'Cap37': [1, 9], 'Cap36': [1, 8], 'Cap35': [1, 8], 
+                'Cap34': [1, 9], 'Cap33': [1, 7], 'Cap32': [1, 8], 
+                'Cap31': [1, 7],
+                // Aquí usamos "cap" para los viejos (1-30) porque están en minúscula
                 'cap30': [1, 9], 'cap29': [1, 9], 'cap28': [1, 15], 'cap27': [2, 18],
                 'cap26': [1, 11], 'cap25': [1, 9], 'cap24': [1, 14], 'cap23': [1, 11],
                 'cap22': [2, 14], 'cap21': [1, 11], 'cap20': [1, 11], 'cap19': [2, 14],
@@ -144,6 +144,7 @@
 
         btnDownload.onclick = () => {
             if (!currentC || !currentS) return;
+            // IMPORTANTE: Aquí también respetamos si el nombre del archivo srt debe ir con "Cap" o "cap"
             const fileUrl = `${BASE_PATH}${currentS}/subtitulos/${currentC}.srt`;
             const link = document.createElement('a'); link.href = fileUrl; link.download = `${currentC}.srt`;
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
@@ -163,7 +164,8 @@
                     for (let i = start; i <= end; i++) { urls.push(`${BASE_PATH}${s}/${c}/${i}.webp`); }
                     seriesData[s].push({ id: c, urls: urls });
                 }
-                seriesData[s].sort((a, b) => b.id.localeCompare(a.id, undefined, { numeric: true }));
+                // Ordenamos numéricamente ignorando mayúsculas/minúsculas para que el 40 salga arriba
+                seriesData[s].sort((a, b) => b.id.localeCompare(a.id, undefined, { numeric: true, sensitivity: 'base' }));
             }
             listCont.innerHTML = '';
             Object.keys(seriesData).sort().forEach(s => {
